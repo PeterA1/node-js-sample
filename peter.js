@@ -11,8 +11,8 @@ var operations = {
       
       var parts = req.url.split("/"),
         op = operations(parts[1]),
-        a = parsetInt(parts[2], 10),
-        b = parstInt(parts[3], 10);
+        a = parseInt(parts[2], 10),
+        b = parseInt(parts[3], 10);
 
       var result = op(a,b);
       

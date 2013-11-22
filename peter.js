@@ -12,4 +12,4 @@ var sys = require('sys'),
       res.end("<h2>This is the end!!<h2>");
     }).listen(5000);
     
-sys.puts("Server running at port 5000");
+console.log("Server running at port 5000");

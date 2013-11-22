@@ -14,7 +14,7 @@ var operations = {
         a = parseInt(parts[2], 10),
         b = parseInt(parts[3], 10);
 
-      var result = op(a,b);
+      var result = "" + op(a,b);
       
       sys.puts(sys.inspect(parts));
       
@@ -22,9 +22,9 @@ var operations = {
       
       res.write("<h1>The Worlds simplest Web Service in Node.js</h1>");
       
-      res.write(parts[1])
+      res.write("<h2>You have asked for " + parts[2] + parts[1] + parts[3] + "</h2>")
       
-      res.end("" + result);
+      res.end(result);
       
     }).listen(5000);
     

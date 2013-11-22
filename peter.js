@@ -10,7 +10,7 @@ var operations = {
     http.createServer(function(req, res) {
       
       var parts = req.url.split("/"),
-        op = operations(parts[1]),
+        op = operations[parts[1]],
         a = parseInt(parts[2], 10),
         b = parseInt(parts[3], 10);
 

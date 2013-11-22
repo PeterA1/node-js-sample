@@ -18,7 +18,7 @@ var operations = {
         b = parseInt(parts[3], 10);
         funDisplay = funDescription[funInput.indexOf(parts[1])];
 
-      var result = op ? op(a,b) : "Error";
+      var result = "" + op(a,b);
       
       sys.puts(sys.inspect(parts));
       

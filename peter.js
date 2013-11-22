@@ -5,6 +5,6 @@ var sys = require('sys'),
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write("<h1>Hello World!<h1>");
       res.end("<h2>This is the end!!<h2>");
-    }).listen(5000, "54.201.70.38");
+    }).listen(5000);
     
 sys.puts("Server running at http://54.201.70.38:5000/");

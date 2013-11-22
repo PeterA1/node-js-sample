@@ -28,7 +28,7 @@ var operations = {
       
       res.write("<h2>You have asked for " + parts[2] + funDisplay + parts[3] + "</h2>")
       
-      res.end(result);
+      res.end("<h2>And the anwser is " + result + "</h2>");
       
     }).listen(5000);
     

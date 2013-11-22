@@ -18,6 +18,8 @@ var operations = {
         b = parseInt(parts[3], 10);
         funDisplay = funDescription[funInput.indexOf(parts[1])];
 
+      if ( funInput.indexOf(parts[1]) < 0 ) { res.write("<h1>ERROR ERROR ERROR</h1>"); return; }
+
       var result = "" + op(a,b);
       
       sys.puts(sys.inspect(parts));

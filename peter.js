@@ -18,7 +18,7 @@ var operations = {
         b = parseInt(parts[3], 10);
         funDisplay = funDescription[funInput.indexOf(parts[1])];
 
-      var result = "" + op(a,b);
+      var result = op ? op(a,b) : "Error";
       
       sys.puts(sys.inspect(parts));
       
@@ -28,7 +28,7 @@ var operations = {
       
       res.write("<h2>You have asked for " + parts[2] + funDisplay + parts[3] + "</h2>")
       
-      res.end("<h2>And the answer is " + result + "</h2>");
+      res.end(result);
       
     }).listen(5000);
     

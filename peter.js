@@ -20,6 +20,10 @@ var operations = {
       
       res.writeHead(200, {'Content-Type': 'text/html'});
       
+      res.write("<h1>The Worlds simplest Web Service in Node.js</h1>");
+      
+      res.write(parts[1])
+      
       res.end("" + result);
       
     }).listen(5000);

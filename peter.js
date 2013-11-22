@@ -18,7 +18,13 @@ var operations = {
       
       sys.puts(sys.inspect(parts));
       
-      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      
+      res.write("<h1>Hello World!</h1>");
+      
+      res.write(result);
+      
+      res.end("<h2>This is the end!</h2>");
       
       res.end(result);
       

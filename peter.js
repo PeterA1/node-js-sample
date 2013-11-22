@@ -16,7 +16,7 @@ var operations = {
         op = operations[parts[1]],
         a = parseInt(parts[2], 10),
         b = parseInt(parts[3], 10);
-        funDisplay = funDescription[funInput.indexOf[parts[1]]];
+        funDisplay = funDescription[funInput.indexOf(parts[1])];
 
       var result = "" + op(a,b);
       

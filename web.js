@@ -3,7 +3,7 @@ var app = express();
 app.use(express.logger());
 
 app.get('/', function(request, response) {
-  response.send('Hello World! Hello Peter!! Hello with commit');
+  response.send('Hello World! Hello Peter!! Now we are using Git for Code Maint');
 });
 
 var port = process.env.PORT || 5000;

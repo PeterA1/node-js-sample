@@ -22,7 +22,7 @@ var operations = {
       
       res.write("<h1>The Worlds simplest Web Service in Node.js</h1>");
       
-      res.write("<h2>You have asked for " + parts[2] + parts[1] + parts[3] + "</h2>")
+      res.write("<h2>You have asked for " + parts[2] + " " + parts[1] + " " + parts[3] + "</h2>")
       
       res.end(result);
       

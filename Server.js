@@ -6,7 +6,7 @@ VolMessages = 0;
 
 Counter = 1000;
 
-wss = new WebSocketServer({port: 8001});
+wss = new WebSocketServer({port: 5001});
 
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter; Counter = Counter + 1; ws.send('UID'+Counter); Traffic.push(ws); ws.on('message', function(message) { MessageRecieved(ws,message); } ); 
                                     ws.addEventListener('close', function(code)    { console.log("We have just closed :",code.target.id); wsRemove(code.target.id); return; },true );

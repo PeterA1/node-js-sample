@@ -6,10 +6,11 @@ VolMessages = 0;
 
 Counter = 1000;
 
-wss = new WebSocketServer({ port:5000 });
+wss = new WebSocketServer({port: 5000});
 
-wss.on('connection', function(ws) { ws.id = "myUID"+Counter; ws.send('UID'+Counter); Counter = Counter + 1; Traffic.push(ws); ws.on('message', function(message) { MessageRecieved(ws,message); } ); 
-                                    ws.addEventListener('close', function(code)    { console.log("We have just closed :",code.target.id); wsRemove(code.target.id); return; },true );
+wss.on('connection', function(ws) { ws.id = "myUID"+Counter;  ws.send(ws.id); Counter = Counter + 1; Traffic.push(ws); console.log("Opened to : ",ws.id);
+                                    ws.on('message', function(message) { MessageRecieved(ws,message); } ); 
+                                    ws.addEventListener('close', function(code)    { wsRemove(code.target.id); return; },true );
                                     ws.addEventListener('error', function(error)   { console.log("Error  :",error); return; },true );
                                   } );
 
@@ -37,10 +38,11 @@ function wsRemove(faultyconnection) {
 
       
       if (Traffic[k].id == faultyconnection ) { Traffic[k].id = ""; console.log("Removed :" + faultyconnection); return; };
-        
-      console.log("Could Not find");
 
     };
     
 };
+    
+// ws.id = "Client :" + Counter; Counter = Counter + 1;    
+    
   

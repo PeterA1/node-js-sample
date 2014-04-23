@@ -43,6 +43,27 @@ function wsRemove(faultyconnection) {
     
 };
     
-// ws.id = "Client :" + Counter; Counter = Counter + 1;    
+function GetDate(date) {
+
+fDate = new Date();
+fDate.setTime(date);
+    rDate = Days[fDate.getDay()]+",";
+	f = 0;
+    rDate += " " + Month[fDate.getMonth()];
+    if (Mth[0].indexOf(fDate.getDate()) > -1 ) { rDate = rDate+" "+fDate.getDate()+"st"; f=1;};
+    if (Mth[1].indexOf(fDate.getDate()) > -1 ) { rDate = rDate+" "+fDate.getDate()+"nd"; f=1;};
+    if (Mth[2].indexOf(fDate.getDate()) > -1 ) { rDate = rDate+" "+fDate.getDate()+"rd"; f=1;};
+    if (f == 0 ) {rDate = rDate+", "+fDate.getDate()+"th"; };
+    
+    rDate += " " + fDate.getFullYear();
+    Hours = fDate.getHours();
+    Minutes = fDate.getMinutes();
+    if (Hours < 12) { AMPM = "am"; }; if (Hours > 11) { AMPM = "pm"; if (Hours > 12) { Hours = Hours - 12; }; };
+    Minutes = Minutes + AMPM; if (Minutes.length < 4) { Minutes = "0" + Minutes };
+    rDate += ", "+ Hours + "." + Minutes;
+
+return rDate;
+
+};
     
   

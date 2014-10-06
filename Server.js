@@ -124,7 +124,7 @@ function MessageRecieved(ws,message) {
     var D = JSON.parse(message);
     if ( D[0] == 'SVP' ) { fs.writeFile(D[1].n+'.plexDB',JSON.stringify(D[1])); allPlex[D[1].n+'.plexDB'] = JSON.stringify(D[1]); console.log("Saving ",D[1].n); if ( CF.indexOf(D[1].n+'.plexDB') < 0 ) { CF.push(D[1].n+'.plexDB'); } return; }
     if ( D[0] == 'GMP' ) { ws.send(JSON.stringify(['HAP',CF])); return; }
-    if ( D[0] == 'SMP' ) { ws.send(JSON.stringify(['HYP',allPlex[D[1]]])); return;  }
+    if ( D[0] == 'SMP' ) { console.log(allPlex[D[1]]); ws.send(JSON.stringify(['HYP',allPlex[D[1]]])); return;  }
     if ( D[0] == 'SMS' ) { ws.send(JSON.stringify(['HIS',allPlex['PlexShareItems.plexDB']])); return; }
     if ( D[0] == 'APN' ) { if ( D[1] != null ) { D.push(ws.id); SendMessage(ws,JSON.stringify(D)); console.log(D); } else { console.log("null APN token received"); } return; }
     if ( D[0] == 'PNS' ) { SendNotification(D[1],D[2],D[3],D[4],D[5]); return; }

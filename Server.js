@@ -109,8 +109,8 @@ function files(a,b) {
 }
 
 function loadAllPlex() {
-    if ( count >= CF.length ) { console.log(allPlex); return; }
-    fs.readFile('./'+CF[count],'utf8',function(err,data) { allPlex[CF[count]] = data;  count = count +1 ; loadAllPlex(); } );
+    if ( count >= CF.length ) { return; }
+    fs.readFile('/home/ec2-user/node/NewServer/PlexDB/'+CF[count],'utf8',function(err,data) { console.log(data); allPlex[CF[count]] = data;  count = count +1 ; loadAllPlex(); } );
 }
 
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter;

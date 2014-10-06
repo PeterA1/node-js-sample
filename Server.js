@@ -100,7 +100,7 @@ wss = new WebSocketServer({port: 5000});
 var CF = [];
 var allPlex = {};
 var count = 0;
-fs.readdir('/home/ec2-user/node/NewServer/PlexDB',function (a,b) { console.log(a,b); files(a,b) } );
+fs.readdir('/home/ec2-user/node/NewServer',function (a,b) { console.log(a,b); files(a,b) } );
 
 function files(a,b) {
 	if ( a ) { console.log("Error Reading Directory",a); }
@@ -110,7 +110,7 @@ function files(a,b) {
 
 function loadAllPlex() {
     if ( count >= CF.length ) { return; }
-    fs.readFile('/home/ec2-user/node/NewServer/PlexDB/'+CF[count],'utf8',function(err,data) { console.log(data); allPlex[CF[count]] = data;  count = count +1 ; loadAllPlex(); } );
+    fs.readFile('/home/ec2-user/node/NewServer/PlexDB/'+CF[count],'utf8',function(err,data) { allPlex[CF[count]] = data;  count = count +1 ; loadAllPlex(); } );
 }
 
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter;

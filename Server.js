@@ -100,7 +100,7 @@ wss = new WebSocketServer({port: 5000});
 var CF = [];
 var allPlex = {};
 var count = 0;
-fs.readdir('/Users/peter/Documents/plex',function (a,b) { console.log(a,b); files(a,b) } );
+fs.readdir('/home/ec2-user/node/NewServer/PlexDB',function (a,b) { console.log(a,b); files(a,b) } );
 
 function files(a,b) {
 	if ( a ) { console.log("Error Reading Directory",a); }

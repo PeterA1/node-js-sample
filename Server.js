@@ -110,7 +110,7 @@ function files(a,b) {
 
 function loadAllPlex() {
     if ( count >= CF.length ) { return; }
-    fs.readFile('/home/ec2-user/node/NewServer/PlexDB/'+CF[count],'utf8',function(err,data) { allPlex[CF[count]] = data;  count = count +1 ; loadAllPlex(); } );
+    fs.readFile('/home/ec2-user/node/NewServer/'+CF[count],'utf8',function(err,data) { allPlex[CF[count]] = data;  count = count +1 ; loadAllPlex(); } );
 }
 
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
@@ -122,7 +122,7 @@ wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
 
 function MessageRecieved(ws,message) {
     var D = JSON.parse(message);
-    if ( D[0] == 'SVP' ) { fs.writeFile(D[1].n+'.plexDB',JSON.stringify(D[1])); allPlex[D[1].n+'.plexDB'] = JSON.stringify(D[1]); console.log("Saving ",D[1].n); if ( CF.indexOf(D[1].n+'.plexDB') < 0 ) { CF.push(D[1].n+'.plexDB'); } return; }
+    if ( D[0] == 'SVP' ) { fs.writeFile('/home/ec2-user/node/NewServer/'+D[1].n+'.plexDB',JSON.stringify(D[1])); allPlex[D[1].n+'.plexDB'] = JSON.stringify(D[1]); console.log("Saving ",D[1].n); if ( CF.indexOf(D[1].n+'.plexDB') < 0 ) { CF.push(D[1].n+'.plexDB'); } return; }
     if ( D[0] == 'GMP' ) { ws.send(JSON.stringify(['HAP',CF])); return; }
     if ( D[0] == 'SMP' ) { ws.send(JSON.stringify(['HYP',allPlex[D[1]]])); return;  }
     if ( D[0] == 'SMS' ) { ws.send(JSON.stringify(['HIS',allPlex['PlexShareItems.plexDB']])); return; }

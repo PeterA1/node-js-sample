@@ -8,6 +8,8 @@ var SPARQLclient = require('sparql-client');
 var util = require('util');
 var endpoint = 'http://landregistry.data.gov.uk/landregistry/query';
 
+console.log("And here we start");
+
 //var query1 = 'SELECT ?paon ?saon ?street ?town ?county ?postcode ?amount ?date WHERE { ?transx lrppi:pricePaid ?amount ; lrppi:transactionDate ?date ; lrppi:propertyAddress ?addr; ?addr lrcommon:postcode ?postcode."';
     //''+postCode+
 //var query2 = '"^^xsd:string. OPTIONAL {?addr lrcommon:county ?county} OPTIONAL {?addr lrcommon:paon ?paon} OPTIONAL {?addr lrcommon:saon ?saon} OPTIONAL {?addr lrcommon:street ?street} OPTIONAL {?addr lrcommon:town ?town} } ORDER BY ?amount';

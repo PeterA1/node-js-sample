@@ -451,7 +451,7 @@ function downselect(ws,string,options,selected) {
         selected[s] = {};
         for ( var b = 0; b < B.length; b++ ) { if ( B[b+1] == '0' && !Array.isArray(DO[B[b]])) { selected[s] = buildONEarr(DO[B[b]],b,B); break; } if ( Array.isArray(DO[B[b]]) ) { selected[s] = buildObj(DO[B[b]],b,B); break; } else { selected[s][B[b]] = DO[B[b]]; selected[s] = selected[s][B[b]]; DO = DO[B[b]]; } }
     }
-    for ( var kk in selected ) { for ( var jj in selected[kk] ) { if ( jj == 'floor_plan') { console.log(jj,selected[kk][jj]); } else { console.log(jj); } } }
+    for ( var kk in selected ) { for ( var jj in selected[kk] ) { if ( jj == 'floor_plan+#text') { console.log(jj,selected[kk][jj]); } else { console.log(jj); } } }
     ws.send(JSON.stringify(['WSR',"",options,selected]));
     // console.log("Data",data);
     // ws.send(JSON.stringify(['WSR',"",options,selected]));

@@ -138,7 +138,7 @@ function MessageRecieved(ws,message) {
 }
 
 function HousePriceCheck(ws,query,selected) {
-    if ( selected ) { fs.readFile('pricesearches/'+ws.id+'.arr', function(e,data) { if (e) { console.log("Error Reading ",'pricesearches/'+ws.id+'.arr'); return; } DownSort(ws,selected,JSON.parse(data)); });  return; }
+    if ( selected ) { fs.readFile('/home/ec2-user/node/NewServer/pricesearches/'+ws.id+'.arr', function(e,data) { if (e) { console.log("Error Reading ",'pricesearches/'+ws.id+'.arr'); return; } DownSort(ws,selected,JSON.parse(data)); });  return; }
     client.query(prefix+query1+query+query2).execute(function(errors,results) { ProcessHousePriceCheck(ws,results,errors); return; });
 }
 
@@ -250,7 +250,7 @@ function ProcessHousePriceCheck(ws,results,errors) {
 
     }
     NewData.sort(NewSort);
-    fs.writeFile('pricesearches/'+ws.id+'.arr',JSON.stringify(NewData));
+    fs.writeFile('/home/ec2-user/node/NewServer/pricesearches/'+ws.id+'.arr',JSON.stringify(NewData));
     if ( NewData.length < 1000 ) { ws.send(JSON.stringify(["HPR",NewData])); } else { ws.send(JSON.stringify(["HPR", { plexcount: NewData.length, street: street,postcode: postcode, date: date, price: price }])); }
     console.log("First Pass", Date.now() - now);
 }
@@ -289,7 +289,7 @@ function SendPostCode(ws,str) {
     ws.send(JSON.stringify(['HPC',str]));
 }
 
-function WebServiceConnect(ws,host,path,query,selected) {
+function WebServiceConnect(ws,host,path,query,method,selected) {
 
 if ( typeof query == 'object' ) { query = createXML(query); return; }
 var ssl = false;
@@ -302,9 +302,9 @@ var options = {
     host: host,
     path: path,
     headers: { 'Content-Type':'application-json' },
-    method: 'GET'
+    method: method
 };
-    console.log(host,path);
+    console.log(method,host,path);
     if ( ssl ) {
         https.request(options,function(response) {
         response.on('data', function(c) { str += c; });

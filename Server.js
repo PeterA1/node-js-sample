@@ -457,6 +457,7 @@ function downselect(ws,string,options,selected) {
     //for ( var kk in selected ) { for ( var jj in selected[kk] ) { if ( jj == 'floor_plan+#text') { console.log(jj,selected[kk][jj]); } else { console.log(jj); } } }
     ws.send(JSON.stringify(['WSR',"",options,selected,data]));
     // console.log("Data",data);
+    // Why of Why ??
     // ws.send(JSON.stringify(['WSR',"",options,selected]));
 }
 

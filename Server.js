@@ -484,7 +484,7 @@ function buildObj(data,index,Arr) {
         //if ( Array.isArray(newObj) ) { var T = []; for ( var zz = 0; zz < newObj.length; zz++ ) { T.push(JSON.stringify(newObj[zz]['#text'])); } console.log("Converted :"+T+":"); newObj = T; returnArr.push(newObj); }
         //if ( typeof newObj == 'object' ) { console.log("[object Object] is....:"+newObj+":"); for ( var jj in newObj ) { console.log('1st Item in Object',jj,typeof newObj[jj],newObj[jj]); if ( typeof newObj[jj] != 'undefined' ) { returnArr.push(newObj[jj]); } else { returnArr.push(""); } break; } }
         if ( typeof newObj != 'object' ) { returnArr.push(newObj); } else { console.log("Undefined buildObj(Array)"); }
-        if ( typeof newObj == 'undefined' ) { console.log("Undefined",)}
+        if ( typeof newObj == 'undefined' ) { console.log("Undefined",newObj); }
         //returnArr.push(newObj.toString());
     }
     return returnArr;

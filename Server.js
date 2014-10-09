@@ -475,7 +475,7 @@ function buildObj(data,index,Arr) {
         var newObj = data[i];
         for ( var a = index+2; a < Arr.length; a++ ) {
             //if ( a == Arr.length-1 && typeof newObj == 'object' ) { if ( Array.isArray(newObj) ) { newObj =  newObj.join("!,!"); } else { var ArrB = []; for ( var b in newObj ) { ArrB.push(newObj[b]); } newObj = ArrB.join("!,!"); console.log("Hello ",i,Arr[a-1],JSON.stringify(newObj).substring(0,120)); break;  } } else { console.log("What ",typeof newObj,JSON.stringify(newObj).substring(0.120)); }
-            if ( data[i].hasOwnProperty(Arr[a]) ) { newObj[Arr[a]] = data[i][Arr[a]]; data[i] = data[i][Arr[a]]; newObj = newObj[Arr[a]];} else { if ( Array.isArray(data[i]) ) { newObj = data[i] } } //if ( data[i].hasOwnProperty('0') )}
+            if ( data[i].hasOwnProperty(Arr[a]) ) { newObj[Arr[a]] = data[i][Arr[a]]; data[i] = data[i][Arr[a]]; newObj = newObj[Arr[a]];} else { if ( Array.isArray(data[i]) ) { if ( data[i][0].hasOwnProperty(Arr[a]) ) { newObj = []; for ( var kk = 0; kk < data[i].length; kk++ ) { newObj.push(data[i][kk][Arr[a]]); } } else {  newObj = data[i]; } } } //if ( data[i].hasOwnProperty('0') )}
             //data[i] = data[i][Arr[a]];
             //console.log(typeof data[i],a,Arr[a]); // console.log("Got To Undefined",a,Arr[a]); break; }
             //newObj = newObj[Arr[a]];

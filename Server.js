@@ -290,7 +290,7 @@ function SendPostCode(ws,str) {
 }
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
-
+console.log("HERE WE ARE");
 if ( typeof query == 'object' ) { query = createXML(query); return; }
 var ssl = false;
 var a;

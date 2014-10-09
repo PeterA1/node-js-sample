@@ -450,9 +450,9 @@ function downselect(ws,string,options,selected) {
         var DO = JSON.parse(JSON.stringify(data));
         selected[s] = {};
         for ( var b = 0; b < B.length; b++ ) {
-            if ( B[b+1] == '0' && !Array.isArray(DO[B[b]])) {
-                selected[s] = buildONEarr(DO[B[b]],b,B); break; }
-            if ( Array.isArray(DO[B[b]]) ) { selected[s] = buildObj(DO[B[b]],b,B); console.log("This is Arr",s,selected[s]); break; } else { console.log("Why are we here at all?"); selected[s][B[b]] = DO[B[b]]; selected[s] = selected[s][B[b]]; DO = DO[B[b]]; } }
+            if ( B[b+1] == '0' && !Array.isArray(DO[B[b]])) { selected[s] = buildONEarr(DO[B[b]],b,B); break; }
+
+            if ( Array.isArray(DO[B[b]]) ) { selected[s] = buildObj(DO[B[b]],b,B); break; } else { selected[s][B[b]] = DO[B[b]]; selected[s] = selected[s][B[b]]; DO = DO[B[b]]; } }
     }
     //for ( var kk in selected ) { for ( var jj in selected[kk] ) { if ( jj == 'floor_plan+#text') { console.log(jj,selected[kk][jj]); } else { console.log(jj); } } }
     ws.send(JSON.stringify(['WSR',"",options,selected,data]));
@@ -477,13 +477,14 @@ function buildObj(data,index,Arr) {
             //if ( a == Arr.length-1 && typeof newObj == 'object' ) { if ( Array.isArray(newObj) ) { newObj =  newObj.join("!,!"); } else { var ArrB = []; for ( var b in newObj ) { ArrB.push(newObj[b]); } newObj = ArrB.join("!,!"); console.log("Hello ",i,Arr[a-1],JSON.stringify(newObj).substring(0,120)); break;  } } else { console.log("What ",typeof newObj,JSON.stringify(newObj).substring(0.120)); }
             newObj[Arr[a]] = data[i][Arr[a]];
             data[i] = data[i][Arr[a]];
-            if ( typeof data[i] == 'undefined' ) { break; }
+            console.log(typeof data[i],a,Arr[a]); // console.log("Got To Undefined",a,Arr[a]); break; }
             newObj = newObj[Arr[a]];
 
         }
-        if ( Array.isArray(newObj) ) { var T = []; for ( var zz = 0; zz < newObj.length; zz++ ) { T.push(JSON.stringify(newObj[zz]['#text'])); } console.log("Converted :"+T+":"); newObj = T; returnArr.push(newObj); }
+        //if ( Array.isArray(newObj) ) { var T = []; for ( var zz = 0; zz < newObj.length; zz++ ) { T.push(JSON.stringify(newObj[zz]['#text'])); } console.log("Converted :"+T+":"); newObj = T; returnArr.push(newObj); }
         //if ( typeof newObj == 'object' ) { console.log("[object Object] is....:"+newObj+":"); for ( var jj in newObj ) { console.log('1st Item in Object',jj,typeof newObj[jj],newObj[jj]); if ( typeof newObj[jj] != 'undefined' ) { returnArr.push(newObj[jj]); } else { returnArr.push(""); } break; } }
         if ( typeof newObj != 'object' ) { returnArr.push(newObj); } else { console.log("Undefined buildObj(Array)"); }
+        if ( typeof newObj == 'undefined' ) { console.log("Undefined",)}
         //returnArr.push(newObj.toString());
     }
     return returnArr;

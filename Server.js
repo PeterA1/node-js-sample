@@ -438,7 +438,7 @@ function downselect(ws,string,options,selected) {
         var data = xmlToJSON(parser.parseFromString(string,'text/xml'));
         console.log("XML was returned");
         //console.log(string);
-        for ( var kk = 0; kk < data.response.listing.length; kk++ ) { for ( var pq in data.response.listing[kk] ) { if ( pq == 'floor_plan' || pq == 'displayable_address' ) { console.log(pq,data.response.listing[kk][pq]); } else { console.log(pq); } } }
+        for ( var kk = 0; kk < data.response.listing.length; kk++ ) { console.log(data.response.listing[kk]['floor_plan']); console.log(data.response.listing[kk]['displayable_address']);}
     }
     else {
         //console.log("JSON was returned,data");

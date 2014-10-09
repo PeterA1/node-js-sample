@@ -130,7 +130,7 @@ function MessageRecieved(ws,message) {
     if ( D[0] == 'APN' ) { if ( D[1] != null ) { D.push(ws.id); SendMessage(ws,JSON.stringify(D)); console.log(D); } else { console.log("null APN token received"); } return; }
     if ( D[0] == 'PNS' ) { SendNotification(D[1],D[2],D[3],D[4],D[5]); return; }
     if ( D[0] == 'DIG' ) { console.log(D); return; }
-    if ( D[0] == 'WSC' ) { WebServiceConnect(ws,D[1],D[2],D[3],D[4]); return; }
+    if ( D[0] == 'WSC' ) { WebServiceConnect(ws,D[1],D[2],D[3],D[4],D[5]); return; }
     if ( D[0] == 'GML' ) { GiveMeLocation(ws,D[1],D[2],D[3],D[4]); return; }
     if ( D[0] == 'HPI' ) { HousePriceCheck(ws,D[1],D[2]); return; }
     SendMessage(ws,message);
@@ -434,9 +434,9 @@ function downselect(ws,string,options,selected) {
         var parser = new DOMParser();
 
         var data = xmlToJSON(parser.parseFromString(string,'text/xml'));
-        //console.log("XML was returned");
+        console.log("XML was returned");
         //console.log(string);
-        //console.log(data);
+        console.log(data);
     }
     else {
         //console.log("JSON was returned,data");

@@ -460,7 +460,8 @@ function downselect(ws,string,options,selected) {
     }
     //for ( var kk in selected ) { for ( var jj in selected[kk] ) { if ( jj == 'floor_plan+#text') { console.log(jj,selected[kk][jj]); } else { console.log(jj); } } }
     if ( DO['result_count'] ) { var count = DO['result_count']['#text'] } //console.log('Total Responses',DO['result_count']['#text']);
-    ws.send(JSON.stringify(['WSR',"",options,selected],count));
+    console.log(count);
+    ws.send(JSON.stringify(['WSR',"",options,selected,count]));
     // console.log("Data",data);
     // Why of Why ??
     // ws.send(JSON.stringify(['WSR',"",options,selected]));

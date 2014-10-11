@@ -459,8 +459,8 @@ function downselect(ws,string,options,selected) {
             if ( Array.isArray(DO[B[b]]) ) { selected[s] = buildObj(DO[B[b]],b,B); break; } else { selected[s][B[b]] = DO[B[b]]; selected[s] = selected[s][B[b]]; DO = DO[B[b]]; } }
     }
     //for ( var kk in selected ) { for ( var jj in selected[kk] ) { if ( jj == 'floor_plan+#text') { console.log(jj,selected[kk][jj]); } else { console.log(jj); } } }
-    console.log('Total Responses',DO['result_count']);
-    ws.send(JSON.stringify(['WSR',"",options,selected]));
+    if ( DO['result_count'] ) { var count = DO['result_count']['#text'] } //console.log('Total Responses',DO['result_count']['#text']);
+    ws.send(JSON.stringify(['WSR',"",options,selected],count));
     // console.log("Data",data);
     // Why of Why ??
     // ws.send(JSON.stringify(['WSR',"",options,selected]));

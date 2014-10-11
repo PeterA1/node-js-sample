@@ -116,7 +116,7 @@ function loadAllPlex() {
 }
 
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
-                                    ws.send(JSON.stringify(["myUID",Counter])); Traffic.push(ws); console.log("Opened to : ",ws.id); for ( var cc = 0; cc < Traffic.length; cc++ ) { console.log(cc, Traffic[cc].id); } SendMessage(ws,JSON.stringify(['NEW','UID:'+Counter])); Counter = Counter + 1;
+                                    ws.send(JSON.stringify(["myUID",Counter])); Traffic.push(ws); console.log("Opened to : ",ws.id); for ( var cc = 0; cc < Traffic.length; cc++ ) { console.log(cc, Traffic[cc].id); } ws.send(JSON.stringify(['NEW',ws.id])); Counter = Counter + 1;
                                     ws.on('message', function(message) { MessageRecieved(ws,message); } ); 
                                     ws.addEventListener('close', function(code)    { wsRemove(code.target.id); return; },true );
                                     ws.addEventListener('error', function(error)   { console.log("Error  :",error); return; },true );

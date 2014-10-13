@@ -139,7 +139,7 @@ function MessageRecieved(ws,message) {
     if ( D[0] == 'WSC' ) { WebServiceConnect(ws,D[1],D[2],D[3],D[4],D[5]); return; }
     if ( D[0] == 'GML' ) { GiveMeLocation(ws,D[1],D[2],D[3],D[4]); return; }
     if ( D[0] == 'HPI' ) { HousePriceCheck(ws,D[1],D[2]); return; }
-    if ( D[0] == 'PSQ' ) { fs.writeFile('/home/ec2-user/node/NewServer/Resources.plexREST',JSON.stringify(D[1])); ResourcesPlex = JSON.stringify(D[1]); console.log('Saved Queries'); }
+    if ( D[0] == 'PSQ' ) { fs.writeFile('/home/ec2-user/node/NewServer/Resources.plexREST',JSON.stringify(D[1])); ResourcesPlex = JSON.stringify(D[1]); console.log('Saved Queries'); return; }
     SendMessage(ws,message);
 
 }

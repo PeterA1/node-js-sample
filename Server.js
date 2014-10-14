@@ -120,7 +120,7 @@ wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
                                     console.log("Opened to : ",ws.id);
                                     for ( var cc = 0; cc < Traffic.length; cc++ ) { console.log(cc, Traffic[cc].id); }
                                     ws.send(JSON.stringify(['NEW',ws.id+""])); Counter = Counter + 1;
-                                    ws.on('message', function(message) { MessageRecieved(ws,message); } ); 
+                                    ws.on('message', function(message) { MessageRecieved(ws,message); } );
                                     ws.addEventListener('close', function(code)    { wsRemove(code.target.id); return; },true );
                                     ws.addEventListener('error', function(error)   { console.log("Error  :",error); return; },true );
                                   } );
@@ -323,6 +323,48 @@ var options = {
             response.on('end', function() {  downselect(ws,str,options,selected); });
         }).end();
     }
+}
+
+function WebServiceConnect(ws,host,path,query,method,selected) {
+if ( typeof query == 'object' ) { query = createXML(query); return; }
+var ssl = false;
+var a;
+    if ( method == 'GET' && query ) { path = path + '?' + toJSONhttp(query); }
+    if ( host.substring(0,8) == 'https://' ) { host = host.substring(8,host.length); ssl = true; }
+    if ( host.substring(0,7) == 'http://' ) { host = host.substring(7,host.length); }
+var str = "";
+var options = {
+    host: host,
+    path: path,
+    Accept: '*/*',
+    headers: { 'Content-Type':'application-json' },
+    method: method
+};
+    if ( method == 'POST' && query ) {
+        var Q = query.split("&");
+        var NQ = {};
+        for ( var i = 0; i < Q.length; i++ ) { var Q1 = Q[i].split('='); NQ[Q1[0]] = Q1[1]; }
+        query = JSON.stringify(NQ);
+        options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
+    }
+
+    console.log(method,host,path);
+    console.log(options);
+    console.log(query);
+    if ( ssl ) {
+        var req = https.request(options,function(response) {
+        response.on('data', function(c) { str += c; });
+        response.on('end', function() { downselect(ws,str,options,selected); });
+        });
+        if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
+    } else {
+        var req = http.request(options,function(response) {
+            response.on('data', function(c) { str += c;  });
+            response.on('end', function() {  downselect(ws,str,options,selected); });
+        });
+        if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
+    }
+    //if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
 }
 
 function createXML (oObjTree) {
@@ -618,24 +660,19 @@ var myDevice = new apn.Device(DeviceID);
 function SendMessage(ws,message) {
 if ( JSON.parse(message)[0] == 'ULF' ) { var R = JSON.parse(message); if ( R[2].length > 50 ) { fs.writeFile('img/'+R[1]+'.png',R[2].substring(22,R[2].length),'base64'); SendMessage("",JSON.stringify(['DUN',R[1],'img/'+R[1]+'.png'])); }; return; } // fs.writeFile(R[1],atob(R[2]), function(e) { console.log('Was there an error',e) });
   for (k=0;k<Traffic.length;k++) {
-            
+
       if (Traffic[k].id != ws.id && Traffic[k].id.length > 0 && Traffic[k].readyState == '1' ) { Traffic[k].send(message); VolMessages = VolMessages + 1; console.log(":"+Traffic[k].id+":",VolMessages,Traffic[k].id.length,Traffic[k].readyState); };
 
   };
-    
+
 };
 
 function wsRemove(faultyconnection) {
-  
+
     for (k=0;k<Traffic.length;k++) {
 
       if (Traffic[k].id == faultyconnection ) { Traffic[k].id = ""; console.log("Removed :" + faultyconnection); return; };
 
     };
-    
+
 };
-        
-    
-    
-   
-    

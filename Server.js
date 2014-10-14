@@ -506,7 +506,7 @@ function downselect(ws,string,options,selected) {
     }
 
     for ( a in selected ) { if ( DO['result_count'] ) { var count = DO['result_count']['#text'] }; ws.send(JSON.stringify(['WSR',"",options,selected,count])); return; }
-    ws.send('WSR',"",options,data,count);
+    ws.send(JSON.stringify(['WSR',"",options,data,count]));
 }
 
 function buildONEarr(data,index,Arr) {

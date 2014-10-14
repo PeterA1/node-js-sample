@@ -340,6 +340,9 @@ var options = {
     headers: { 'Content-Type':'application-json' },
     method: method
 };
+
+    console.log("Query",query);
+
     if ( method == 'POST' && query ) {
         var Q = query.split("&");
         var NQ = {};

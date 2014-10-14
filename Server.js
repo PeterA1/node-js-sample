@@ -504,6 +504,7 @@ function downselect(ws,string,options,selected) {
 
             if ( Array.isArray(DO[B[b]]) ) { selected[s] = buildObj(DO[B[b]],b,B); break; } else { selected[s][B[b]] = DO[B[b]]; selected[s] = selected[s][B[b]]; DO = DO[B[b]]; } }
     }
+    console.log(selected);
     if ( selected ) { if ( DO['result_count'] ) { var count = DO['result_count']['#text'] }; ws.send(JSON.stringify(['WSR',"",options,selected,count])); return; }
     ws.send('WSR',"",options,data,count);
 }

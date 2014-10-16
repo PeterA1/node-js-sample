@@ -327,7 +327,8 @@ var options = {
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
 //if ( typeof query == 'object' ) { query = createXML(query); return; }
-if ( method == 'PUT' ) { query = JSON.stringify(query); }
+//if ( method == 'PUT' ) { query = JSON.stringify(query); }
+
 var ssl = false;
 var a;
     if ( method == 'GET' && query ) { path = path + '?' + toJSONhttp(query); }
@@ -344,7 +345,7 @@ var options = {
 
     console.log("Query",query);
 
-    if ( method == 'POST' && query ) {
+    if ( method == 'POST' && typeof query == 'string' ) {
         var Q = query.split("&");
         var NQ = {};
         for ( var i = 0; i < Q.length; i++ ) { var Q1 = Q[i].split('='); NQ[Q1[0]] = Q1[1]; }
@@ -352,8 +353,8 @@ var options = {
         options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
     }
 
-    if ( method == 'PUT' ) {
-      // query = JSON.stringify(query);
+    if ( method == 'POST' && typeof query == 'object' ) {
+        query = JSON.stringify(query);
         options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
     }
 

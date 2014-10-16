@@ -439,6 +439,8 @@ function convert24to12(stringtime) {
 
 function downselect(ws,string,options,selected) {
 
+    console.log(string.substring(0,150));
+
     if ( options.host == 'maps.googleapis.com' && options.path.indexOf('/nearbysearch/') > -1 ) {
         //console.log(options);
         var latlong = options.path; latlong = latlong.substring(latlong.indexOf('location=')+9,latlong.length); latlong = latlong.substring(0,latlong.indexOf("&")).split(","); var lat = latlong[0]; var long = latlong[1];

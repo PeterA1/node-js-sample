@@ -327,6 +327,7 @@ var options = {
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
 //if ( typeof query == 'object' ) { query = createXML(query); return; }
+if ( method == 'PUT' ) { query = JSON.stringify(query); }
 var ssl = false;
 var a;
     if ( method == 'GET' && query ) { path = path + '?' + toJSONhttp(query); }
@@ -352,7 +353,7 @@ var options = {
     }
 
     if ( method == 'PUT' ) {
-      query = JSON.stringify(query);
+      // query = JSON.stringify(query);
         options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
     }
 

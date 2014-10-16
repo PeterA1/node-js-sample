@@ -439,7 +439,7 @@ function convert24to12(stringtime) {
 
 function downselect(ws,string,options,selected) {
 
-    console.log(string.substring(0,150));
+    console.log(string);
 
     if ( options.host == 'maps.googleapis.com' && options.path.indexOf('/nearbysearch/') > -1 ) {
         //console.log(options);

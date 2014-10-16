@@ -127,7 +127,7 @@ wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
 
 function MessageRecieved(ws,message) {
     var D = JSON.parse(message);
-    console.log("Revieved",ws.id,message.substring(0,50));
+    console.log("Revieved",ws.id,message.substring(0,150));
     if ( D[0] == 'MYU' ) { console.log("re-naming",ws.id,"to",D[1]); ws.id = D[1]; return; }
     if ( D[0] == 'SVP' ) { fs.writeFile('/home/ec2-user/node/NewServer/'+D[1].n+'.plexDB',JSON.stringify(D[1])); allPlex[D[1].n+'.plexDB'] = JSON.stringify(D[1]); console.log("Saving ",D[1].n); if ( CF.indexOf(D[1].n+'.plexDB') < 0 ) { CF.push(D[1].n+'.plexDB'); } return; }
     if ( D[0] == 'GMP' ) { ws.send(JSON.stringify(['HAP',CF])); return; }
@@ -439,7 +439,7 @@ function convert24to12(stringtime) {
 
 function downselect(ws,string,options,selected) {
 
-    console.log(string);
+    console.log(string.substring(0,500));
 
     if ( options.host == 'maps.googleapis.com' && options.path.indexOf('/nearbysearch/') > -1 ) {
         //console.log(options);

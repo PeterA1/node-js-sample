@@ -504,6 +504,8 @@ function downselect(ws,string,options,selected) {
         var data = JSON.parse(string);
     }
     if ( data.response && data.response.disambiguation ) { ws.send(JSON.stringify(["WSR","",options,data.response])); return; }  //for ( var i = 0; i < data.response.disambiguation.length; i++ ) { console.log("DisAm",data.response.disambiguation[i]);  } return; }
+    console.log(selected);
+    console.log(data);
     for (s in selected) {
         var B = s.split(",");
         var DO = JSON.parse(JSON.stringify(data));
@@ -515,6 +517,7 @@ function downselect(ws,string,options,selected) {
     }
 
     for ( a in selected ) { if ( DO['result_count'] ) { var count = DO['result_count']['#text'] }; ws.send(JSON.stringify(['WSR',"",options,selected,count])); return; }
+      console.log(data);
     ws.send(JSON.stringify(['WSR',"",options,data,count]));
 }
 

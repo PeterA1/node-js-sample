@@ -326,7 +326,7 @@ var options = {
 }
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
-if ( typeof query == 'object' ) { query = createXML(query); return; }
+//if ( typeof query == 'object' ) { query = createXML(query); return; }
 var ssl = false;
 var a;
     if ( method == 'GET' && query ) { path = path + '?' + toJSONhttp(query); }
@@ -351,6 +351,11 @@ var options = {
         options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
     }
 
+    if ( method == 'PUT' ) {
+      query = JSON.stringify(query);
+        options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
+    }
+
     console.log(method,host,path);
     console.log(options);
     console.log(query);
@@ -359,13 +364,13 @@ var options = {
         response.on('data', function(c) { str += c; });
         response.on('end', function() { downselect(ws,str,options,selected); });
         });
-        if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
+        if ( method == 'POST' || method == 'PUT' ) { req.write(query); req.end(); } else { req.end(); }
     } else {
         var req = http.request(options,function(response) {
             response.on('data', function(c) { str += c;  });
             response.on('end', function() {  downselect(ws,str,options,selected); });
         });
-        if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
+        if ( method == 'POST' || method == 'PUT' ) { req.write(query); req.end(); } else { req.end(); }
     }
     //if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
 }

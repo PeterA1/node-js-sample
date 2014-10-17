@@ -639,7 +639,7 @@ function SendMessage(ws,message) {
 if ( JSON.parse(message)[0] == 'ULF' ) { var R = JSON.parse(message); if ( R[2].length > 50 ) { fs.writeFile('img/'+R[1]+'.png',R[2].substring(22,R[2].length),'base64'); SendMessage("",JSON.stringify(['DUN',R[1],'img/'+R[1]+'.png'])); }; return; } // fs.writeFile(R[1],atob(R[2]), function(e) { console.log('Was there an error',e) });
   for (k=0;k<Traffic.length;k++) {
 
-      if (Traffic[k].id != ws.id && Traffic[k].id.length > 0 && Traffic[k].readyState == '1' ) { Traffic[k].send(message); VolMessages = VolMessages + 1; console.log(":"+Traffic[k].id+":",VolMessages,Traffic[k].id.length,Traffic[k].readyState,message.substring(0,100)); };
+      if (Traffic[k].id != ws.id && Traffic[k].id.length > 0 && Traffic[k].readyState == '1' ) { Traffic[k].send(message); VolMessages = VolMessages + 1; console.log(":"+Traffic[k].id+":",VolMessages,message.length,message.substring(0,100)); };
 
   };
 

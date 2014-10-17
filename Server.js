@@ -297,7 +297,11 @@ function SendPostCode(ws,str) {
 }
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
-console.log("HERE WE ARE");
+console.log("Host",host);
+console.log("Path",path);
+console.log("Query",query);
+console.log("Methd",method);
+console.log("Selected",selected);
 if ( typeof query == 'object' ) { query = createXML(query); return; }
 var ssl = false;
 var a;
@@ -311,7 +315,7 @@ var options = {
     headers: { 'Content-Type':'application-json' },
     method: method
 };
-    console.log(method,host,path);
+
     if ( ssl ) {
         https.request(options,function(response) {
         response.on('data', function(c) { str += c; });
@@ -335,9 +339,7 @@ var a;
     if ( host.substring(0,8) == 'https://' ) { host = host.substring(8,host.length); ssl = true; }
     if ( host.substring(0,7) == 'http://' ) { host = host.substring(7,host.length); }
 var str = "";
-console.log("Host",host);
-console.log("Path",path);
-console.log("Methd",method);
+
 var options = {
     host: host,
     path: path,

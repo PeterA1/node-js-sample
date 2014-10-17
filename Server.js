@@ -337,6 +337,7 @@ var a;
 var str = "";
 console.log("Host",host);
 console.log("Path",path);
+console.log("Methd",method);
 var options = {
     host: host,
     path: path,

@@ -347,7 +347,8 @@ var options = {
         query = JSON.stringify(query);
         options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
     }
-
+    console.log("Host/Path is ",method,host+path);
+    console.log("Query is ",query);
     if ( ssl ) {
         var req = https.request(options,function(response) {
         response.on('data', function(c) { str += c; });

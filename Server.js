@@ -297,11 +297,7 @@ function SendPostCode(ws,str) {
 }
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
-console.log("Host",host);
-console.log("Path",path);
-console.log("Query",query);
-console.log("Methd",method);
-console.log("Selected",selected);
+
 if ( typeof query == 'object' ) { query = createXML(query); return; }
 var ssl = false;
 var a;
@@ -332,6 +328,11 @@ var options = {
 function WebServiceConnect(ws,host,path,query,method,selected) {
 //if ( typeof query == 'object' ) { query = createXML(query); return; }
 //if ( method == 'PUT' ) { query = JSON.stringify(query); }
+console.log("Host",host);
+console.log("Path",path);
+console.log("Query",query);
+console.log("Methd",method);
+console.log("Selected",selected);
 
 var ssl = false;
 var a;

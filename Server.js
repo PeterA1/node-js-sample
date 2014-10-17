@@ -97,6 +97,8 @@ VolMessages = 0;
 
 Counter = 1000;
 
+var CurrentPlex = "";
+
 wss = new WebSocketServer({port: 5000});
 
 var CF = [];
@@ -118,8 +120,8 @@ function loadAllPlex() {
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
                                     Traffic.push(ws);
                                     console.log("Opened to : ",ws.id);
-                                    for ( var cc = 0; cc < Traffic.length; cc++ ) { console.log(cc, Traffic[cc].id); }
                                     ws.send(JSON.stringify(['NEW',ws.id+""])); Counter = Counter + 1;
+                                    ws.send(JSON.stringify(['CLP',currentPlex,CF]));
                                     ws.on('message', function(message) { MessageRecieved(ws,message); } );
                                     ws.addEventListener('close', function(code)    { wsRemove(code.target.id); return; },true );
                                     ws.addEventListener('error', function(error)   { console.log("Error  :",error); return; },true );
@@ -131,7 +133,7 @@ function MessageRecieved(ws,message) {
     if ( D[0] == 'MYU' ) { console.log("re-naming",ws.id,"to",D[1]); ws.id = D[1]; return; }
     if ( D[0] == 'SVP' ) { fs.writeFile('/home/ec2-user/node/NewServer/'+D[1].n+'.plexDB',JSON.stringify(D[1])); allPlex[D[1].n+'.plexDB'] = JSON.stringify(D[1]); console.log("Saving ",D[1].n); if ( CF.indexOf(D[1].n+'.plexDB') < 0 ) { CF.push(D[1].n+'.plexDB'); } return; }
     if ( D[0] == 'GMP' ) { ws.send(JSON.stringify(['HAP',CF])); return; }
-    if ( D[0] == 'SMP' ) { ws.send(JSON.stringify(['HYP',allPlex[D[1]]])); return;  }
+    if ( D[0] == 'SMP' ) { ws.send(JSON.stringify(['HYP',allPlex[D[1]]])); currentPlex = D[1]; return;  }
     if ( D[0] == 'SMS' ) { ws.send(JSON.stringify(['HIS',allPlex['PlexShareItems.plexDB']])); return; }
     if ( D[0] == 'APN' ) { if ( D[1] != null ) { D.push(ws.id); SendMessage(ws,JSON.stringify(D)); console.log(D); } else { console.log("null APN token received"); } return; }
     if ( D[0] == 'PNS' ) { SendNotification(D[1],D[2],D[3],D[4],D[5]); return; }

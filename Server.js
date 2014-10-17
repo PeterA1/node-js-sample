@@ -297,42 +297,10 @@ function SendPostCode(ws,str) {
 }
 
 function WebServiceConnect(ws,host,path,query,method,selected) {
-
-if ( typeof query == 'object' ) { query = createXML(query); return; }
-var ssl = false;
-var a;
-    if ( query ) { path = path + '?' + toJSONhttp(query); }
-    if ( host.substring(0,8) == 'https://' ) { host = host.substring(8,host.length); ssl = true; }
-    if ( host.substring(0,7) == 'http://' ) { host = host.substring(7,host.length); }
-var str = "";
-var options = {
-    host: host,
-    path: path,
-    headers: { 'Content-Type':'application-json' },
-    method: method
-};
-
-    if ( ssl ) {
-        https.request(options,function(response) {
-        response.on('data', function(c) { str += c; });
-        response.on('end', function() { downselect(ws,str,options,selected); });
-    }).end();
-    } else {
-        http.request(options,function(response) {
-            response.on('data', function(c) { str += c;  });
-            response.on('end', function() {  downselect(ws,str,options,selected); });
-        }).end();
-    }
-}
-
-function WebServiceConnect(ws,host,path,query,method,selected) {
 //if ( typeof query == 'object' ) { query = createXML(query); return; }
 //if ( method == 'PUT' ) { query = JSON.stringify(query); }
-console.log("Host",host);
-console.log("Path",path);
+console.log("Host/Path is ",method,host+path)
 console.log("Query",query);
-console.log("Methd",method);
-console.log("Selected",selected);
 
 var ssl = false;
 var a;
@@ -349,8 +317,6 @@ var options = {
     method: method
 };
 
-    console.log("Query",query);
-
     if ( method == 'POST' && typeof query == 'string' ) {
         var Q = query.split("&");
         var NQ = {};
@@ -364,23 +330,18 @@ var options = {
         options.headers = { 'Connection': 'Keep-Alive', 'Accept': 'application/JSON', 'Expect': '100-continue', 'Content-Type': 'application/JSON; charset=utf-8', 'Content-Length': query.length }
     }
 
-    console.log(method,host,path);
-    console.log(options);
-    console.log(query);
     if ( ssl ) {
         var req = https.request(options,function(response) {
         response.on('data', function(c) { str += c; });
         response.on('end', function() { downselect(ws,str,options,selected); });
         });
-        if ( method == 'POST' || method == 'PUT' ) { req.write(query); req.end(); } else { req.end(); }
     } else {
         var req = http.request(options,function(response) {
             response.on('data', function(c) { str += c;  });
             response.on('end', function() {  downselect(ws,str,options,selected); });
         });
-        if ( method == 'POST' || method == 'PUT' ) { req.write(query); req.end(); } else { req.end(); }
     }
-    //if ( method == 'POST' ) { req.write(query); req.end(); } else { req.end(); }
+    if ( method == 'POST' || method == 'PUT' ) { req.write(query); req.end(); } else { req.end(); }
 }
 
 function createXML (oObjTree) {
@@ -678,7 +639,7 @@ function SendMessage(ws,message) {
 if ( JSON.parse(message)[0] == 'ULF' ) { var R = JSON.parse(message); if ( R[2].length > 50 ) { fs.writeFile('img/'+R[1]+'.png',R[2].substring(22,R[2].length),'base64'); SendMessage("",JSON.stringify(['DUN',R[1],'img/'+R[1]+'.png'])); }; return; } // fs.writeFile(R[1],atob(R[2]), function(e) { console.log('Was there an error',e) });
   for (k=0;k<Traffic.length;k++) {
 
-      if (Traffic[k].id != ws.id && Traffic[k].id.length > 0 && Traffic[k].readyState == '1' ) { Traffic[k].send(message); VolMessages = VolMessages + 1; console.log(":"+Traffic[k].id+":",VolMessages,Traffic[k].id.length,Traffic[k].readyState); };
+      if (Traffic[k].id != ws.id && Traffic[k].id.length > 0 && Traffic[k].readyState == '1' ) { Traffic[k].send(message); VolMessages = VolMessages + 1; console.log(":"+Traffic[k].id+":",VolMessages,Traffic[k].id.length,Traffic[k].readyState,message.substring(0,100)); };
 
   };
 

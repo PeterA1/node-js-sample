@@ -122,7 +122,7 @@ wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
                                     console.log("Opened to : ",ws.id);
                                     console.log("Now in git");
                                     ws.send(JSON.stringify(['NEW',ws.id+""])); Counter = Counter + 1;
-                                    ws.send(JSON.stringify(['CLP',currentPlex,CF]));
+                                    ws.send(JSON.stringify(['CLP',CurrentPlex,CF]));
                                     ws.on('message', function(message) { MessageRecieved(ws,message); } );
                                     ws.addEventListener('close', function(code)    { wsRemove(code.target.id); return; },true );
                                     ws.addEventListener('error', function(error)   { console.log("Error  :",error); return; },true );

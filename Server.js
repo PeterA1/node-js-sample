@@ -120,6 +120,7 @@ function loadAllPlex() {
 wss.on('connection', function(ws) { ws.id = "myUID"+Counter;
                                     Traffic.push(ws);
                                     console.log("Opened to : ",ws.id);
+                                    console.log("Now in git");
                                     ws.send(JSON.stringify(['NEW',ws.id+""])); Counter = Counter + 1;
                                     ws.send(JSON.stringify(['CLP',currentPlex,CF]));
                                     ws.on('message', function(message) { MessageRecieved(ws,message); } );

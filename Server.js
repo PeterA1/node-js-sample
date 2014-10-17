@@ -335,6 +335,8 @@ var a;
     if ( host.substring(0,8) == 'https://' ) { host = host.substring(8,host.length); ssl = true; }
     if ( host.substring(0,7) == 'http://' ) { host = host.substring(7,host.length); }
 var str = "";
+console.log("Host",host);
+console.log("Path",path);
 var options = {
     host: host,
     path: path,

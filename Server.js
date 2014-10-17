@@ -148,6 +148,20 @@ function MessageRecieved(ws,message) {
 
 }
 
+function Plex2Client(name) {
+    if ( typeof allPlex[name] == 'string' && allPlex[name].length > 100000 ) {
+        var Bplex = allPlex[name];
+        var length = Bplex.length;
+        for ( var i = 0; i < length; i += 100000 ) {
+            ws.send(JSON.stringify(['PPP',i,length,Bplex.substring(i,i+100000)]));
+        }
+        ws.send(JSON.stringify(['HYP',length]));
+    }
+    else {
+        ws.send(JSON.stringify(['HYP', JSON.parse(allPlex[name]) ] ));
+    }
+}
+
 function HousePriceCheck(ws,query,selected) {
     if ( selected ) { fs.readFile('/home/ec2-user/node/NewServer/pricesearches/'+ws.id+'.arr', function(e,data) { if (e) { console.log("Error Reading ",'pricesearches/'+ws.id+'.arr'); return; } DownSort(ws,selected,JSON.parse(data)); });  return; }
     client.query(prefix+query1+query+query2).execute(function(errors,results) { ProcessHousePriceCheck(ws,results,errors); return; });

@@ -352,16 +352,16 @@ var options = {
     console.log("headers are",options.headers);
     if ( ssl ) {
         var req = https.request(options,function(response) {
-        req.on('error', function(e) { console.log("hhtps reports Error :",Date(),e); console.log(options.headers); });
         response.on('data', function(c) { str += c; });
         response.on('end', function() { downselect(ws,str,options,selected); });
         });
+        req.on('error', function(e) { console.log(Date(),"hhtps reports Error :", e.message); console.log(options.headers); });
     } else {
         var req = http.request(options,function(response) {
-            req.on('error', function(e) { console.log("hhtp reports Error :",Date(),e); console.log(options.headers); });
             response.on('data', function(c) { str += c;  });
             response.on('end', function() {  downselect(ws,str,options,selected); });
         });
+        req.on('error', function(e) { console.log(Date(),"hhtp reports Error :", e.message); console.log(options.headers); });
     }
     if ( method == 'POST' || method == 'PUT' ) { req.write(query); req.end(); } else { req.end(); }
 }

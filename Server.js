@@ -349,13 +349,16 @@ var options = {
     }
     console.log("Host/Path is ",method,host+path);
     console.log("Query is ",query);
+    console.log("headers are",options.headers);
     if ( ssl ) {
         var req = https.request(options,function(response) {
+        req.on('error', function(e) { console.log("hhtps reports Error :",Date(),e); console.log(options.headers); });
         response.on('data', function(c) { str += c; });
         response.on('end', function() { downselect(ws,str,options,selected); });
         });
     } else {
         var req = http.request(options,function(response) {
+            req.on('error', function(e) { console.log("hhtp reports Error :",Date(),e); console.log(options.headers); });
             response.on('data', function(c) { str += c;  });
             response.on('end', function() {  downselect(ws,str,options,selected); });
         });

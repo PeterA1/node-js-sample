@@ -493,9 +493,8 @@ function downselect(ws,string,options,selected) {
         var data = JSON.parse(string);
     }
     if ( data.response && data.response.disambiguation ) { ws.send(JSON.stringify(["WSR","",options,data.response])); return; }  //for ( var i = 0; i < data.response.disambiguation.length; i++ ) { console.log("DisAm",data.response.disambiguation[i]);  } return; }
-    console.log('496',data.response);
-    console.log('487',data.response.error_code);
-    if ( data.response && data.response.error_code ) { ws.send(JSON.stringify["WSR","",options,data.response]); return; }
+
+    if ( data.response && data.response.error_code ) { ws.send(JSON.stringify(["WSR","",options,data.response])); return; }
     
     console.log("507",selected);
     console.log("508",data);

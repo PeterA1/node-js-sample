@@ -144,7 +144,7 @@ function MessageRecieved(ws,message) {
     if ( D[0] == 'HPI' ) { HousePriceCheck(ws,D[1],D[2]); return; }
     if ( D[0] == 'MPP' ) { Plex2Client(ws,D[1]); return; }
     if ( D[0] == 'PSQ' ) { fs.writeFile('/home/ec2-user/node/NewServer/Resources.plexREST',JSON.stringify(D[1])); ResourcesPlex = JSON.stringify(D[1]); console.log('Saved Queries'); return; }
-    if ( D[0] == 'ORD' ) { NewOrder(ws.D[1]); return; )
+    if ( D[0] == 'ORD' ) { NewOrder(ws.D[1]); return; }
     SendMessage(ws,message);
 
 }

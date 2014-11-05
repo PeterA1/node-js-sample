@@ -153,11 +153,11 @@ function MessageRecieved(ws,message) {
 function NewOrder(ws,order) {
 	if ( order.eMoney ) {
 		console.log("eMoney Order Recieved");
-		console.log(order);
 		var orderRef = MD5(JSON.stringify(order)).toUpperCase().substring(0,8);
 		console.log('Order Reference',orderRef);
 		orders[orderRef] = order;
 		console.log(orders);
+		ws.send(JSON.stringify(['ORR',orderRef]));
 	}
 }
 

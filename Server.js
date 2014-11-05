@@ -152,8 +152,9 @@ function MessageRecieved(ws,message) {
 function NewOrder(ws,order) {
 	if ( order.eMoney ) {
 		console.log("eMoney Order Recieved");
-		console.log("User",order.eMoney.eMail);
 		console.log(order);
+		var orderRef = MD5(JSON.Stringify(order)).toUpperCase().substring(0,8);
+		console.log('Order Reference',orderRef);
 	}
 }
 

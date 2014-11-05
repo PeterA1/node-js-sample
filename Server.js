@@ -150,7 +150,7 @@ function MessageRecieved(ws,message) {
 }
 
 function NewOrder(ws,order) {
-	if ( order.eMonry ) {
+	if ( order.eMoney ) {
 		console.log("eMoney Order Recieved");
 		console.log("User",order.eMoney.eMail);
 		console.log(order);

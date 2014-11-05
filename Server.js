@@ -7,6 +7,7 @@ var DOMParser = require('xmldom').DOMParser;
 var SPARQLclient = require('sparql-client');
 var util = require('util');
 var endpoint = 'http://landregistry.data.gov.uk/landregistry/query';
+var orders = {};
 
 console.log("And here we start");
 
@@ -153,8 +154,10 @@ function NewOrder(ws,order) {
 	if ( order.eMoney ) {
 		console.log("eMoney Order Recieved");
 		console.log(order);
-		var orderRef = MD5(JSON.Stringify(order)).toUpperCase().substring(0,8);
+		var orderRef = MD5(JSON.stringify(order)).toUpperCase().substring(0,8);
 		console.log('Order Reference',orderRef);
+		orders[orderRef] = order;
+		console.log(orders);
 	}
 }
 

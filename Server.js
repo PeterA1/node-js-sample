@@ -93,6 +93,7 @@ options.gateway = 'gateway.sandbox.push.apple.com';
 options.port = 2195;
 // options.enhanced = true;
 
+var ORDER_CONTROL;
 
 VolMessages = 0;
 
@@ -132,7 +133,7 @@ function MessageRecieved(ws,message) {
     var D = JSON.parse(message);
     console.log("Revieved",ws.id,message.substring(0,150));
     if ( D[0] == 'RST' ) { ws.send(JSON.stringify(['CLP',CurrentPlex,CF,allPlex['plexStart.plexDB']])); return; }
-    if ( D[0] == 'MYU' ) { console.log("re-naming",ws.id,"to",D[1]); ws.id = D[1]; return; }
+    if ( D[0] == 'MYU' ) { console.log("re-naming",ws.id,"to",D[1]); ws.id = D[1]; if ( D[1] == 'ORDER_CONTROL' ) { 'ORDER_CONTROL' = ws; } return; }
     if ( D[0] == 'SVP' ) { fs.writeFile('/home/ec2-user/node/NewServer/'+D[1].n+'.plexDB',JSON.stringify(D[1])); allPlex[D[1].n+'.plexDB'] = JSON.stringify(D[1]); console.log("Saving ",D[1].n); if ( CF.indexOf(D[1].n+'.plexDB') < 0 ) { CF.push(D[1].n+'.plexDB'); } return; }
     if ( D[0] == 'GMP' ) { ws.send(JSON.stringify(['HAP',CF])); return; }
     if ( D[0] == 'SMP' ) { ws.send(JSON.stringify(['HYP',allPlex[D[1]]])); CurrentPlex = D[1]; return;  }
@@ -158,6 +159,7 @@ function NewOrder(ws,order) {
 		orders[orderRef] = order;
 		console.log(orders);
 		ws.send(JSON.stringify(['ORR',orderRef]));
+		if ( ORDER_CONTROL ) { ORDER_CONTROL.send(JSON.stringify(['ALO',orders])) }
 	}
 }
 

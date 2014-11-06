@@ -157,6 +157,7 @@ function NewOrder(ws,order) {
 		var orderRef = MD5(JSON.stringify(order)).toUpperCase().substring(0,11);
 		console.log('Order Reference',orderRef);
 		orders[orderRef] = order;
+		orders[orderRed].myUID = ws.id;
 		console.log(orders);
 		ws.send(JSON.stringify(['ORR',orderRef]));
 		if ( ORDER_CONTROL ) { ORDER_CONTROL.send(JSON.stringify(['ALO',orders])) }

@@ -158,6 +158,7 @@ function NewOrder(ws,order) {
 		console.log('Order Reference',orderRef);
 		orders[orderRef] = order;
 		orders[orderRef].myUID = ws.id;
+		orders[orderRef].timeRecieved = Date.now();
 		console.log(orders);
 		ws.send(JSON.stringify(['ORR',orderRef]));
 		if ( ORDER_CONTROL ) { ORDER_CONTROL.send(JSON.stringify(['ALO',orders])) }
